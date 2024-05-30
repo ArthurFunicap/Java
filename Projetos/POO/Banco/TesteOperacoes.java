@@ -142,22 +142,30 @@ public class TesteOperacoes {
         }
     }
 
-    /*private void realizarOperacoes(String agenciaEmissor, String contaEmissor, String agenciaReceptor, Conta contaReceptor) throws SaldoInsuficienteException{
+    private void realizarOperacoes(String numeroAgenciaEmissor, String numeroContaEmissor, String numeroAgenciaReceptor, String numeroContaReceptor) throws SaldoInsuficienteException{
         int emissorEncontrado = 0, receptorEncontrado = 0;
 
+        //Analisando dados do Emissor
         for (Conta c : listaContas) {
-            if(c == contaEmissor){
-                emissorEncontrado = 1;
-                break;
+            if(c.getNumeroAgencia() == numeroAgenciaEmissor){
+                if(c.getNumeroConta() == numeroContaEmissor){
+                    emissorEncontrado++;
+                    break;
+                }
             }
         }
 
+        //Analisando dados do Receptor
         for (Conta c : listaContas) {
-            if(c == contaReceptor){
-                receptorEncontrado = 1;
+            if(c.getNumeroAgencia() == numeroAgenciaReceptor){
+                if(c.getNumeroConta() == numeroContaReceptor){
+                    receptorEncontrado++;
+                    break;
+                }
             }
         }
 
+        //Verificando dados
         if(emissorEncontrado == 0 && receptorEncontrado == 0){
             System.out.println("A conta do emissor e a conta do receptor não foram encontradas no sistema!");
         }
@@ -167,46 +175,72 @@ public class TesteOperacoes {
         else if(receptorEncontrado == 0){
             System.out.println("A conta do receptor não foi encontrada no sistema!");
         }
-        else{
+        else if(emissorEncontrado == 1 && receptorEncontrado == 1){
+            Conta contaEmissor = null;
+            Conta contaReceptor = null;
+            
+            //Pegando a conta do Emissor
+            for (Conta c : listaContas) {
+                if(c.getNumeroAgencia() == numeroAgenciaEmissor){
+                    if(c.getNumeroConta() == numeroContaEmissor){
+                        contaEmissor = c;
+                        break;
+                    }
+                }
+            }
+
+            //Pegando a conta do Receptor
+            for (Conta c : listaContas) {
+                if(c.getNumeroAgencia() == numeroAgenciaReceptor){
+                    if(c.getNumeroConta() == numeroContaReceptor){
+                        contaReceptor = c;
+                        break;
+                    }
+                }
+            }
             contaEmissor.transferencia(contaReceptor);
         }
     }
 
     public void exibirSaldo(String numeroAgencia, String numeroConta){
         Scanner input = new Scanner(System.in);
+        int contaExiste = 0;
         
         for (Conta conta : listaContas) {
-            if(conta.getNumeroConta().contains(numeroConta)){
-                if(conta instanceof ContaPoupanca){
-                    ContaPoupanca contaP = (ContaPoupanca) conta;
+            if(conta.getNumeroAgencia() == numeroAgencia){
+                if(conta.getNumeroConta() == numeroConta){
+                    contaExiste++;
 
-                    System.out.print("Digite a qtd. de meses: ");
-                    int meses = input.nextInt();
-                    input.nextLine();
+                    if(conta instanceof ContaPoupanca){
+                        ContaPoupanca contaP = (ContaPoupanca) conta;
 
-                    contaP.simularOperacoes(meses);
+                        System.out.print("Digite a qtd. de meses: ");
+                        int meses = input.nextInt();
+                        input.nextLine();
 
-                    contaP.exibirSaldo();
+                        contaP.simularOperacoes(meses);
+                        contaP.exibirSaldo();
+                    }
+                    else{
+                        ContaCorrente contaC = (ContaCorrente) conta;
+
+                        System.out.print("Digite a qtd. de meses: ");
+                        int meses = input.nextInt();
+                        input.nextLine();
+
+                        contaC.simularOperacoes(meses);
+                        contaC.exibirSaldo();
+                    }
+                    break;
                 }
-
-                if(conta instanceof ContaCorrente){
-                    ContaCorrente contaC = (ContaCorrente) conta;
-
-                    System.out.print("Digite a qtd. de meses: ");
-                    int meses = input.nextInt();
-                    input.nextLine();
-
-                    contaC.simularOperacoes(meses);
-
-                    contaC.exibirSaldo();
-                }
-                
-                break;
-            }
+            }   
+        }
+        if(contaExiste == 0){
+            System.out.println("Dados da conta inválido!");
         }
         input.close();
     }
-*/
+
     public void apresentarMenu() throws NumeroAgenciaNegativoException, NumeroContaNegativoException, SaldoNegativoException, Exception{
         int op;
 

@@ -8,9 +8,11 @@ public class ContaPoupanca extends Conta{
     }
 
     public void simularOperacoes(int meses){
-
+        double rendimento = getSaldo();
         for(int i = 0; i < meses; i++){
-            setSaldo( getSaldo() + ( taxaRendimento * getSaldo() ) );
+            rendimento += (taxaRendimento * rendimento);
         }
+        System.out.println("Taxa de Rendimento");
+        System.out.println("Simulação do saldo: " + (getSaldo()+rendimento));
     }
 }

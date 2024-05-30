@@ -11,6 +11,7 @@ public class ContaCorrente extends Conta{
         for(int i = 0; i < meses; i++){
             taxaManutencao += taxaManutencao;
         }
-        setSaldo(getSaldo() - taxaManutencao);
+        System.out.println("Taxa de Manutenção");
+        System.out.println("Simulação do saldo: " + (getSaldo()-taxaManutencao));
     }
 }
