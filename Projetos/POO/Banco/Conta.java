@@ -50,6 +50,13 @@ public class Conta {
     private double saldo;
     private Cliente cliente;
 
+    public Conta(String numeroAgencia, String numeroConta, double saldo, Cliente cliente) {
+        this.numeroAgencia = numeroAgencia;
+        this.numeroConta = numeroConta;
+        this.saldo = saldo;
+        this.cliente = cliente;
+    }
+
     public String getNumeroAgencia() {
         return numeroAgencia;
     }
@@ -93,11 +100,7 @@ public class Conta {
         System.out.println("Saque realizado com sucesso!");
     }
 
-    void transferencia(Conta conta) throws ContaInexistenteException, SaldoInsuficienteException{
-        if(conta == null){
-            throw new ContaInexistenteException();
-        }
-
+    void transferencia(Conta conta) throws SaldoInsuficienteException{
         Scanner input = new Scanner(System.in);
         double valorTransferencia;
 
@@ -109,7 +112,9 @@ public class Conta {
             throw new SaldoInsuficienteException();
         }
 
-        conta.setSaldo(conta.getSaldo()+valorTransferencia);
+        conta.setSaldo(this.getSaldo()+valorTransferencia);
+        this.setSaldo(this.getSaldo()-valorTransferencia);
+        System.out.println("Transferência realizada com sucesso!");
     }
 
     void exibirSaldo(){

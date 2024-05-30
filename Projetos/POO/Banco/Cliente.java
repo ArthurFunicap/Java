@@ -5,6 +5,12 @@ public class Cliente{
     private String endereco;
     private String profissao;
 
+    public Cliente(String nome, String endereco, String profissao) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.profissao = profissao;
+    }
+    
     public String getNome() {
         return nome;
     }
