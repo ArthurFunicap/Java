@@ -8,9 +8,8 @@ public class ContaCorrente extends Conta{
     }
 
     public void simularOperacoes(int meses){
-        for(int i = 0; i < meses; i++){
-            taxaManutencao += taxaManutencao;
-        }
+        taxaManutencao *= meses;
+        
         System.out.println("Taxa de Manutenção");
         System.out.println("Simulação do saldo: " + (getSaldo()-taxaManutencao));
     }

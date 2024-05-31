@@ -248,21 +248,47 @@ public class TesteOperacoes {
         System.out.println("1 - Criar conta");
         System.out.println("2 - Realizar operações");
         System.out.println("3 - Exibir saldo");
+        System.out.println("0 - Encerrar operações");
         System.out.print("Digite uma opção: ");
         op = input.nextInt();
         input.nextLine();
 
-        /*switch (op) {
+        switch (op) {
             case 1:
                 criarConta();
                 break;
             case 2:
-                System.out.print("Digite o número da Agência de quem vai enviar: ");
-                int 
+                System.out.print("Digite o número da sua Agência: ");
+                String numeroAgenciaEmissor = input.next();
+                input.nextLine();
+                System.out.print("Digite o número da sua Conta: ");
+                String numeroContaEmissor = input.next();
+                input.nextLine();
+                System.out.print("Digite o número da Agência do receptor: ");
+                String numeroAgenciaReceptor = input.next();
+                input.nextLine();
+                System.out.print("Digite o número da Conta do receptor: ");
+                String numeroContaReceptor = input.next();
+                input.nextLine();
 
-                realizarOperacoes(, null, null, null);
-            default:
+                realizarOperacoes(numeroAgenciaEmissor, numeroContaEmissor, numeroAgenciaReceptor, numeroContaReceptor);
                 break;
-        }*/
+            case 3:
+                System.out.print("Digite o número da Agência: ");
+                String numeroAgencia = input.next();
+                input.nextLine();
+                System.out.print("Digite o número da Conta: ");
+                String numeroConta = input.next();
+                input.nextLine();
+
+                exibirSaldo(numeroAgencia, numeroConta);
+                break;
+            case 0:
+                System.out.println("Operações encerradas.\nTenha um ótimo dia.");
+                break;
+            default:
+                System.out.println("Valor inválido!");
+                break;
+        }while(op != 0);
     }
 }
