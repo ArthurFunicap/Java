@@ -147,8 +147,8 @@ public class TesteOperacoes {
 
         //Analisando dados do Emissor
         for (Conta c : listaContas) {
-            if(c.getNumeroAgencia() == numeroAgenciaEmissor){
-                if(c.getNumeroConta() == numeroContaEmissor){
+            if(c.getNumeroAgencia().equals(numeroAgenciaEmissor)){
+                if(c.getNumeroConta().equals(numeroContaEmissor)){
                     emissorEncontrado++;
                     break;
                 }
@@ -157,8 +157,8 @@ public class TesteOperacoes {
 
         //Analisando dados do Receptor
         for (Conta c : listaContas) {
-            if(c.getNumeroAgencia() == numeroAgenciaReceptor){
-                if(c.getNumeroConta() == numeroContaReceptor){
+            if(c.getNumeroAgencia().equals(numeroAgenciaReceptor)){
+                if(c.getNumeroConta().equals(numeroContaReceptor)){
                     receptorEncontrado++;
                     break;
                 }
@@ -181,8 +181,8 @@ public class TesteOperacoes {
             
             //Pegando a conta do Emissor
             for (Conta c : listaContas) {
-                if(c.getNumeroAgencia() == numeroAgenciaEmissor){
-                    if(c.getNumeroConta() == numeroContaEmissor){
+                if(c.getNumeroAgencia().equals(numeroAgenciaEmissor)){
+                    if(c.getNumeroConta().equals(numeroContaEmissor)){
                         contaEmissor = c;
                         break;
                     }
@@ -191,8 +191,8 @@ public class TesteOperacoes {
 
             //Pegando a conta do Receptor
             for (Conta c : listaContas) {
-                if(c.getNumeroAgencia() == numeroAgenciaReceptor){
-                    if(c.getNumeroConta() == numeroContaReceptor){
+                if(c.getNumeroAgencia().equals(numeroAgenciaReceptor)){
+                    if(c.getNumeroConta().equals(numeroContaReceptor)){
                         contaReceptor = c;
                         break;
                     }
@@ -207,21 +207,11 @@ public class TesteOperacoes {
         int contaExiste = 0;
         
         for (Conta conta : listaContas) {
-            if(conta.getNumeroAgencia() == numeroAgencia){
-                if(conta.getNumeroConta() == numeroConta){
+            if(conta.getNumeroAgencia().equals(numeroAgencia)){
+                if(conta.getNumeroConta().equals(numeroConta)){
                     contaExiste++;
 
-                    if(conta instanceof ContaPoupanca){
-                        ContaPoupanca contaP = (ContaPoupanca) conta;
-
-                        System.out.print("Digite a qtd. de meses: ");
-                        int meses = input.nextInt();
-                        input.nextLine();
-
-                        contaP.simularOperacoes(meses);
-                        contaP.exibirSaldo();
-                    }
-                    else{
+                    if(conta.getClass().equals(ContaCorrente.class)){
                         ContaCorrente contaC = (ContaCorrente) conta;
 
                         System.out.print("Digite a qtd. de meses: ");
@@ -231,6 +221,16 @@ public class TesteOperacoes {
                         contaC.simularOperacoes(meses);
                         contaC.exibirSaldo();
                     }
+                    else if(conta.getClass().equals(ContaPoupanca.class)){
+                        ContaPoupanca contaP = (ContaPoupanca) conta;
+
+                        System.out.print("Digite a qtd. de meses: ");
+                        int meses = input.nextInt();
+                        input.nextLine();
+
+                        contaP.simularOperacoes(meses);
+                        contaP.exibirSaldo();
+                    }
                     break;
                 }
             }   
@@ -238,20 +238,23 @@ public class TesteOperacoes {
         if(contaExiste == 0){
             System.out.println("Dados da conta inválido!");
         }
-        input.close();
     }
 
     public void apresentarMenu() throws NumeroAgenciaNegativoException, NumeroContaNegativoException, SaldoNegativoException, Exception{
-        int op;
+        int op = 0;
 
         System.out.println("Opções:");
         System.out.println("1 - Criar conta");
         System.out.println("2 - Realizar operações");
         System.out.println("3 - Exibir saldo");
-        System.out.println("0 - Encerrar operações");
         System.out.print("Digite uma opção: ");
-        op = input.nextInt();
-        input.nextLine();
+
+        try{
+            op = input.nextInt();
+            input.nextLine();
+        } catch(InputMismatchException e){
+            System.out.println("Valor inválido!");
+        }
 
         switch (op) {
             case 1:
@@ -283,12 +286,9 @@ public class TesteOperacoes {
 
                 exibirSaldo(numeroAgencia, numeroConta);
                 break;
-            case 0:
-                System.out.println("Operações encerradas.\nTenha um ótimo dia.");
-                break;
             default:
                 System.out.println("Valor inválido!");
                 break;
-        }while(op != 0);
+        }
     }
 }

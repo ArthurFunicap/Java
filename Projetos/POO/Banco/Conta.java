@@ -106,19 +106,18 @@ public class Conta {
 
         System.out.print("Digite um valor: ");
         valorTransferencia = input.nextDouble();
-        input.close();
 
         if(valorTransferencia > this.saldo){
             throw new SaldoInsuficienteException();
         }
 
-        conta.setSaldo(this.getSaldo()+valorTransferencia);
+        conta.setSaldo(conta.getSaldo()+valorTransferencia);
         this.setSaldo(this.getSaldo()-valorTransferencia);
         System.out.println("Transferência realizada com sucesso!");
     }
 
     void exibirSaldo(){
         System.out.println("Nome: " + this.cliente.getNome());
-        System.out.printf("Saldo: %.2f", this.saldo);
+        System.out.printf("Saldo: %.2f\n", this.saldo);
     }
 }
