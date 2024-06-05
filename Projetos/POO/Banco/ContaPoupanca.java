@@ -13,6 +13,6 @@ public class ContaPoupanca extends Conta{
             rendimento += (taxaRendimento * rendimento);
         }
         System.out.println("Taxa de Rendimento");
-        System.out.println("Simulação do saldo: " + (getSaldo()+rendimento));
+        System.out.printf("Simulação do saldo: %.2f\n", rendimento);
     }
 }
