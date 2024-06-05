@@ -106,7 +106,6 @@ public class Conta {
 
         System.out.print("Digite um valor: ");
         valorTransferencia = input.nextDouble();
-        input.close();
 
         if(valorTransferencia > this.saldo){
             throw new SaldoInsuficienteException();
