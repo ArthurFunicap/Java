@@ -44,6 +44,16 @@ class SaldoInsuficienteException extends Exception{
     }
 }
 
+class ValorNegativoException extends Exception{
+    public ValorNegativoException(){
+        super("O valor informado não pode ser negativo!");
+    }
+
+    public ValorNegativoException(String mensagem){
+        super(mensagem);
+    }
+}
+
 public class Conta {
     private String numeroAgencia;
     private String numeroConta;
@@ -100,7 +110,7 @@ public class Conta {
         System.out.println("Saque realizado com sucesso!");
     }
 
-    void transferencia(Conta conta) throws SaldoInsuficienteException{
+    void transferencia(Conta conta) throws SaldoInsuficienteException, ValorNegativoException{
         Scanner input = new Scanner(System.in);
         double valorTransferencia;
 
@@ -110,14 +120,17 @@ public class Conta {
         if(valorTransferencia > this.saldo){
             throw new SaldoInsuficienteException();
         }
+        else if(valorTransferencia < 0){
+            throw new ValorNegativoException();
+        }
 
-        conta.setSaldo(this.getSaldo()+valorTransferencia);
+        conta.setSaldo(conta.getSaldo()+valorTransferencia);
         this.setSaldo(this.getSaldo()-valorTransferencia);
         System.out.println("Transferência realizada com sucesso!");
     }
 
     void exibirSaldo(){
         System.out.println("Nome: " + this.cliente.getNome());
-        System.out.printf("Saldo: %.2f", this.saldo);
+        System.out.printf("Saldo: %.2f\n", this.saldo);
     }
 }
