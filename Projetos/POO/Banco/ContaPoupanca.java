@@ -9,10 +9,18 @@ public class ContaPoupanca extends Conta{
 
     public void simularOperacoes(int meses){
         double rendimento = getSaldo();
-        for(int i = 0; i < meses; i++){
-            rendimento += (taxaRendimento * rendimento);
+
+        if(meses == 0){
+            System.out.println("Taxa de Rendimento");
+            System.out.printf("Simulação do saldo: %.2f\n", rendimento);
         }
-        System.out.println("Taxa de Rendimento");
-        System.out.printf("Simulação do saldo: %.2f\n", rendimento);
+        else{
+            for(int i = 0; i < meses; i++){
+                rendimento += (taxaRendimento * rendimento);
+            }
+
+            System.out.println("Taxa de Rendimento");
+            System.out.printf("Simulação do saldo: %.2f\n", rendimento);
+        }
     }
 }
